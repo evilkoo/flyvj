@@ -3,4 +3,6 @@ __pycache__/
 *.py[cod]
 .venv/
 .pytest_cache/
+# Large video tracked by Git LFS
+*.lfspointer
 "FlyVJ M4 — Decision Cockpit - Google Chrome 2026-11-18 03-31-27_1.mp4"
