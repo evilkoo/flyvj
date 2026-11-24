@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-HK">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; media-src blob: data:; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FlyVJ · M3C 公開模型音訊視覺</title>
+<style>__M3_STYLE__</style>
+</head>
+<body>
+<header class="masthead">
+  <div><p class="eyebrow">FLYVJ <span>/ M3B NEURAL VISUAL</span></p><h1>大腦視覺 <span class="title-separator">/</span> Neural field</h1><p class="intro">完整音訊控制＋公開腦區／神經骨架。音訊上色同光點係人為映射，唔係生物 firing；真 6 點另有獨立視圖。</p></div>
+  <div class="badges"><strong id="source-kind">NO FILE</strong><strong id="source-proof">SOURCE CHECK PENDING</strong><strong class="illustration-badge">示意模型</strong><strong>OSC OFF</strong></div>
+</header>
+<section class="transport-panel" aria-label="本機音訊控制">
+  <div class="transport-row">
+    <div class="file-choice"><label for="audio-file">01 / 揀本機音訊</label><input id="audio-file" type="file" accept="audio/*" aria-describedby="audio-help"><output id="audio-file-name" class="file-name" aria-live="polite">未載入音檔</output></div>
+    <button id="test-pcm" type="button">合成 TEST PCM</button>
+    <div class="transport-buttons" role="group" aria-label="播放控制"><button id="play" type="button" disabled>播放</button><button id="pause" type="button" disabled>暫停</button><button id="restart" type="button" disabled>由頭（暫停）</button></div>
+    <label class="monitor-control" for="monitor"><input id="monitor" type="checkbox">監聽聲音 <span id="monitor-state">OFF</span></label>
+    <div class="gain-control"><label for="gain-input">分析 gain <output id="gain-value" for="gain-input">4.0×</output></label><input id="gain-input" type="range" min="0.1" max="32" step="0.1" value="4"></div>
+  </div>
+  <div class="kinect-controls" aria-label="Azure Kinect 本機 Mic">
+    <label for="kinect-device">KINECT MIC · 只限 Azure</label>
+    <select id="kinect-device" aria-label="Azure Kinect 裝置" disabled></select>
+    <button id="kinect-scan" type="button">檢查裝置</button>
+    <button id="kinect-start" type="button" disabled>開始 Kinect Mic</button>
+    <button id="kinect-stop" type="button" disabled>停止 Mic</button>
+    <p id="kinect-status" role="status" aria-live="polite">Mic OFF · 手動開始；無喇叭監聽、無錄音／上傳</p>
+  </div>
+  <div class="player-row"><audio id="audio-player" controls preload="metadata" controlslist="nodownload noremoteplayback" disableremoteplayback aria-label="本機音訊播放器"></audio><p id="source-status" role="status" aria-live="polite" aria-atomic="true">未揀檔 · 已暫停 · 監聽 OFF</p></div>
+  <p id="audio-help" class="help">只讀你主動揀嘅檔案，唔 upload；上限 64 MiB／15 分鐘。Browser decoder 決定格式支援，codec 驗收以 PCM WAV 為準。Gain 只調分析，唔係音量；監聽預設 OFF。</p>
+</section>
+<main>
+  <div class="workspace">
+    <section class="graph-panel" aria-label="3D 大腦示意視覺及獨立真實小樣本">
+      <div class="panel-head"><h2>NEURAL FIELD <span id="model-count">準備示意模型</span></h2><span class="selection-label">真樣本 <span id="graph-count">6 points / 3 edges</span></span></div>
+      <div class="visual-toolbar" role="group" aria-label="大腦視覺控制">
+        <label for="visual-mode">視圖<select id="visual-mode"><option value="regions">公開腦區（14）</option><option value="neuron">神經骨架（1份）</option><option value="points">真實小樣本（6點）</option><option value="brain">舊 M3B 示意（診斷）</option></select></label>
+        <label for="visual-profile">畫質<select id="visual-profile"><option value="performance">Performance</option><option value="cinematic">Cinematic</option></select></label>
+        <label class="visual-toggle"><input id="show-shell" type="checkbox" checked>腦輪廓</label><label class="visual-toggle"><input id="show-fibers" type="checkbox" checked>神經分枝</label><label class="visual-toggle"><input id="show-flow" type="checkbox" checked>訊號流</label><label class="visual-toggle"><input id="show-measured" type="checkbox">疊加真 6 點</label>
+        <label class="visual-strength" for="visual-intensity">視覺強度<input id="visual-intensity" type="range" min="0" max="2" step="0.1" value="1"><output id="visual-intensity-value">1.0×</output></label>
+      </div>
+      <div class="viewport">
+        <canvas id="graph" tabindex="0" role="img" aria-label="互動公開腦區或神經骨架；方向鍵旋轉，加減鍵縮放，Home重設；不同資料分開查看" aria-describedby="camera-help" data-renderer="pending" data-render-state="pending" data-frame="0" data-source-mode="none" data-source-state="no-file" data-file-loaded="false" data-audio-paused="true" data-audio-time="0" data-time="0" data-rms="0" data-energy="0" data-low="0" data-mid="0" data-high="0" data-candidate="HOLD" data-onset-count="0" data-selected-signal="0"></canvas>
+        <p id="render-status" role="status" aria-live="polite">準備 native WebGL…</p>
+        <div class="legend"><span class="low">● LOW · 低頻示意組</span><span class="mid">● MID · 中頻示意組</span><span class="high">● HIGH · 高頻示意組</span><span class="model-clock">AUDIO CLOCK · 暫停會凍結</span></div>
+      </div>
+      <div class="camera-row"><div class="camera-controls"><button id="zoom-out" type="button" aria-label="縮小">−</button><button id="zoom-in" type="button" aria-label="放大">+</button><button id="camera-reset" type="button">重設視角</button></div><p id="camera-help" class="help">拖曳／方向鍵旋轉 · 滾輪／+/− 縮放 · Home 重設 · 點擊選取</p></div>
+      <p id="model-semantics" class="model-semantics">程序生成示意：腦形／分枝／流動唔係真實全腦、morphology 或生物 firing；真 6 點疊加只係對照，唔係解剖配準。</p>
+    </section>
+    <section class="features-panel" aria-label="實際音訊量測">
+      <div class="panel-head"><h2>PCM / FFT <span>2048 samples</span></h2><span id="feature-state" class="state-label">已凍結</span></div>
+      <div class="candidate-card"><span class="eyebrow">COLUMN 候選</span><output id="candidate">HOLD</output><code id="address">無 address 候選</code><p>DRY-RUN · NOT VERIFIED · 無發送功能</p></div>
+      <div class="energy-row"><div><label for="energy-value">Energy / RMS × gain</label><output id="energy-value">0.0000</output></div><div class="raw-metric"><label for="rms">Raw RMS</label><output id="rms">0.0000</output><span id="clipping">無 clipping</span></div></div>
+      <div class="band-row low"><div><span>LOW <small>30–180 Hz</small></span><output id="low-value">0.0000</output></div><div class="bar"><span id="low-meter" role="progressbar" aria-label="低頻幅度" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0"></span></div></div>
+      <div class="band-row mid"><div><span>MID <small>180–2500 Hz</small></span><output id="mid-value">0.0000</output></div><div class="bar"><span id="mid-meter" role="progressbar" aria-label="中頻幅度" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0"></span></div></div>
+      <div class="band-row high"><div><span>HIGH <small>2500–8000 Hz / Nyquist</small></span><output id="high-value">0.0000</output></div><div class="bar"><span id="high-meter" role="progressbar" aria-label="高頻幅度" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0"></span></div></div>
+      <div class="feature-foot"><div><span>拍點候選 <small>唔係 BPM</small></span><output id="onset">否</output></div><div><span>累積候選</span><output id="onset-count">0</output></div><div><span>分析時間</span><output id="timeline">0.00 s</output></div><div><span>已選 point / <span id="selected-role">LOW</span></span><output id="selected-signal">0.0000</output></div></div>
+      <p class="help">人為 low／mid／high，每兩個 sorted ID 一組。靜音 ≤ 0.02 → HOLD；候選轉換至少隔 0.8 s。暫停會凍結 features；選 point 唔會改 Column。</p>
+    </section>
+  </div>
+  <details id="original-data">
+    <summary>原始 ID／nm／selected-edge 資料 <span>點選只查閱，唔控制音訊</span></summary>
+    <div class="original-grid"><section><label for="neuron">Neuron ID（完整字串）</label><select id="neuron"></select><dl id="selection"></dl><h3>Selected-edge neuropil（唔係點所在位置）</h3><p class="help">pre → post 係方向；weight 係 selected-neuropil synapse count，唔係全腦總數／音訊強度。</p><ul id="edges"></ul></section><section><h3>來源同映射限制</h3><p id="provenance"></p><p id="coordinates"></p><p id="fingerprint"></p><p id="mapping-semantics"></p><ul id="rules"></ul><p class="help">只做中心平移同 uniform scale；呢度保留原始 nm。Source verified 唔等於音樂理解、BPM、biological firing 或 OSC address 已驗證。私人檔名唔會存入 export。</p></section></div>
+  </details>
+  <details id="renderer-diagnostics">
+    <summary>Renderer diagnostics（QC）<span>本機可逆測試，唔係 live output</span></summary>
+    <p class="help">按鈕使用真正 WEBGL_lose_context extension。Graph 失效唔會停音訊分析；檢查 scoped error 同 DOM diagnostics。draw-submitted 唔等於視覺 QC PASS。</p>
+    <div class="camera-controls"><button id="lose-context" type="button" disabled>測試 context lost</button><button id="restore-context" type="button" disabled>恢復 context</button></div><p id="diagnostic-status" role="status" class="help">未確認 extension 支援。</p>
+  </details>
+</main>
+<footer>LOCAL FILE / USER-ARMED AZURE KINECT MIC · NO RGB / DEPTH / RECORD / UPLOAD · OSC OFF · 非全腦／生物模擬</footer>
+<script type="application/json" id="m3-payload">__M3_PAYLOAD__</script>
+<script>__M3_GEOMETRY__</script>
+<script>__M3_AUDIO__</script>
+<script>__M3_BRAIN_GEOMETRY__</script>
+<script>__M3_BRAIN_RENDERER__</script>
+<script>__M3_MORPH_GEOMETRY__</script>
+<script>__M3_MORPH_RENDERER__</script>
+<script>__M3_MIC_BRIDGE__</script>
+<script>__M3_APP__</script>
+</body>
+</html>

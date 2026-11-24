@@ -1,0 +1,33 @@
+{
+  "schema": "CURATED_REAL_POINT_GRAPH_SOURCE_PROOF_V1",
+  "candidate_dataset_fingerprint": "ad9a6aa448921039529ca106d35bee265a53265786c5b3243ef2cb0f1a21e1ae",
+  "sample_sha256": "eaa50de4476764fe35e9bfb7ea602866f498a88d83b541e8175a73b75bc02cd7",
+  "scope": "six real annotation points and three observed neuropil-specific weighted edges; not full morphology or induced connectome",
+  "intended_use": "private personal prototype",
+  "materialization_version": "783",
+  "source_commit": "3477b6cfccaf3bf976e6af0d40513ad221311a36",
+  "units": "nm",
+  "coordinate_frame": "Codex FAFB 783 native marked-coordinate frame; no transform",
+  "region_semantics": "Neuropil associated with the selected measured synaptic edge(s), not a soma/coordinate anatomical-region assignment.",
+  "weight_semantics": "The source row syn_count for one neuropil, not an all-neuropil summed edge weight.",
+  "annotations_are_not_necessarily_october_2023": true,
+  "upstream_sources": [
+    "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/connections.csv.gz?generation=1733428416885848",
+    "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/coordinates.csv.gz?generation=1733428431583877",
+    "https://raw.githubusercontent.com/murthylab/codex/3477b6cfccaf3bf976e6af0d40513ad221311a36/codex/data/local_data_loader.py",
+    "https://raw.githubusercontent.com/murthylab/codex/3477b6cfccaf3bf976e6af0d40513ad221311a36/codex/data/neuron_data_initializer.py",
+    "https://raw.githubusercontent.com/murthylab/codex/3477b6cfccaf3bf976e6af0d40513ad221311a36/codex/utils/formatting.py"
+  ],
+  "source_files": {
+    "acquisition_receipt.json": "b307c4b03c1f3008c9b1f37ab37f2fa553f0f16ccb0b6f9a137f618f44d85601",
+    "codex-formatting.py.txt": "bee35f405161d5c6293e34504fb8b202791971c98ed158b7f7cf41b3b1540c57",
+    "codex-local_data_loader.py.txt": "bfeeba93def42f2db5221dc40bf7d0cce6efd912ef9c7908b9a0c3ab1e0c059a",
+    "codex-neuron_data_initializer.py.txt": "86deb9935643d5aa76accea10cf71ed1afb1b5fc666032dacac3be6505967e1f",
+    "connections.prefix-65536.bin": "5432beb18cced0508fe2189d0f33bb2e1d20bd0e0cc7440a9909f906665c1802",
+    "coordinates.csv.gz": "14337121f451f98c2576cee72c24409ada5aaf7948b7c7ca8de9040296840e05",
+    "source_commit.json": "105ee5879a51311e1dd49ec6c9623dab2d7672998ea82825a70fa7e1cf164748"
+  },
+  "source_docs_executed": false,
+  "source_bytes_downloaded": 5380082,
+  "review_status": "PENDING_INDEPENDENT_QC"
+}

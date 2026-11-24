@@ -1,0 +1,165 @@
+{
+  "source_status": "PASSED",
+  "overall_scope": "CURATED_POINT_GRAPH_ONLY",
+  "actual_model_identity": "UNCONFIRMED",
+  "requested_model": "gpt-6-astra",
+  "requested_effort": "low",
+  "independent_review": true,
+  "dataset_fingerprint": "ad9a6aa448921039529ca106d35bee265a53265786c5b3243ef2cb0f1a21e1ae",
+  "source_commit": "3477b6cfccaf3bf976e6af0d40513ad221311a36",
+  "reviewed_sha256": {
+    "data/flywire783-m1/source/acquisition_receipt.json": "b307c4b03c1f3008c9b1f37ab37f2fa553f0f16ccb0b6f9a137f618f44d85601",
+    "data/flywire783-m1/source/codex-formatting.py.txt": "bee35f405161d5c6293e34504fb8b202791971c98ed158b7f7cf41b3b1540c57",
+    "data/flywire783-m1/source/codex-local_data_loader.py.txt": "bfeeba93def42f2db5221dc40bf7d0cce6efd912ef9c7908b9a0c3ab1e0c059a",
+    "data/flywire783-m1/source/codex-neuron_data_initializer.py.txt": "86deb9935643d5aa76accea10cf71ed1afb1b5fc666032dacac3be6505967e1f",
+    "data/flywire783-m1/source/connections.prefix-65536.bin": "5432beb18cced0508fe2189d0f33bb2e1d20bd0e0cc7440a9909f906665c1802",
+    "data/flywire783-m1/source/coordinates.csv.gz": "14337121f451f98c2576cee72c24409ada5aaf7948b7c7ca8de9040296840e05",
+    "data/flywire783-m1/source/source_commit.json": "105ee5879a51311e1dd49ec6c9623dab2d7672998ea82825a70fa7e1cf164748",
+    "data/flywire783-m1/sample.json": "eaa50de4476764fe35e9bfb7ea602866f498a88d83b541e8175a73b75bc02cd7",
+    "data/flywire783-m1/source_proof.json": "c9a72652f6f152ccc38cbbb64418b8774f8fd35112553ae5827cd3e0d41f89c6",
+    "docs/M1_COMPLETION_SPEC.md": "aa192d1fb2ad8fb53419844001c09a72702829f0709d9e2daf6baf2a896d2c16",
+    "src/flyvj_m0/dataset.py": "edf06aef27591baee69b81061286ac284dda3738f936388c4f0a31b66da201da"
+  },
+  "checks": {
+    "source_proof_all_seven_hashes": "PASS",
+    "receipt_payload_hashes_sizes_generations": "PASS",
+    "commit_document_hashes_sizes_urls": "PASS",
+    "sample_sha256": "PASS",
+    "raw_first_three_distinct_nonself_neuropil_rows": "PASS",
+    "six_exact_string_ids": "PASS",
+    "first_coordinate_per_id_full_scan": "PASS",
+    "all_positions_regions_weights": "PASS",
+    "known_schema_parse_fingerprint": "PASS",
+    "numeric_id_rejected": "PASS",
+    "coordinates_full_gzip_integrity": "PASS",
+    "coordinates_crc32c_vs_saved_vendor_header": "PASS",
+    "loader_raw_url_template_and_call": "PASS",
+    "initializer_formatting_nm_conversion": "PASS",
+    "spec_proof_receipt_scope_semantics": "PASS"
+  },
+  "evidence": {
+    "selected_connection_rows": [
+      {
+        "pre_root_id": "720575940629970489",
+        "post_root_id": "720575940631267655",
+        "neuropil": "AVLP_R",
+        "syn_count": "7",
+        "nt_type": "GABA"
+      },
+      {
+        "pre_root_id": "720575940605876866",
+        "post_root_id": "720575940606514878",
+        "neuropil": "LAL_R",
+        "syn_count": "15",
+        "nt_type": "GABA"
+      },
+      {
+        "pre_root_id": "720575940627737365",
+        "post_root_id": "720575940628914436",
+        "neuropil": "AL_L",
+        "syn_count": "32",
+        "nt_type": "ACH"
+      }
+    ],
+    "reconstructed_neurons": [
+      {
+        "id": "720575940605876866",
+        "position": [
+          403352,
+          188744,
+          212200
+        ],
+        "region": "LAL_R"
+      },
+      {
+        "id": "720575940606514878",
+        "position": [
+          596332,
+          170248,
+          79480
+        ],
+        "region": "LAL_R"
+      },
+      {
+        "id": "720575940627737365",
+        "position": [
+          454956,
+          227816,
+          54800
+        ],
+        "region": "AL_L"
+      },
+      {
+        "id": "720575940628914436",
+        "position": [
+          458412,
+          229596,
+          56400
+        ],
+        "region": "AL_L"
+      },
+      {
+        "id": "720575940629970489",
+        "position": [
+          617032,
+          264280,
+          95280
+        ],
+        "region": "AVLP_R"
+      },
+      {
+        "id": "720575940631267655",
+        "position": [
+          677120,
+          302912,
+          104120
+        ],
+        "region": "AVLP_R"
+      }
+    ],
+    "coordinate_rows_scanned": 238909,
+    "coordinates_uncompressed_bytes": 14573481,
+    "connections_prefix_compressed_bytes": 65536,
+    "connections_prefix_uncompressed_bytes": 278900,
+    "connections_gzip_eof": false,
+    "coordinates_crc32c_base64": "tDNXJw==",
+    "generations": {
+      "connections.csv.gz": "1733428416885848",
+      "coordinates.csv.gz": "1733428431583877"
+    },
+    "binary64_id_roundtrip_would_change": [
+      "720575940605876866",
+      "720575940606514878",
+      "720575940627737365",
+      "720575940628914436",
+      "720575940629970489",
+      "720575940631267655"
+    ]
+  },
+  "review_notes": [
+    "只用已保存raw evidence，無網絡查詢。",
+    "source_proof.review_status維持PENDING_INDEPENDENT_QC；capture前pending唔係來源簽署，本檔獨立記錄實際校驗。",
+    "region係selected edge涉及neuropil，唔係soma或coordinate localization；weight只係該neuropil row syn_count。spec、proof、receipt有清楚交代。",
+    "units nm由已固定initializer呼叫及formatting除4/4/40 conversion支持；只使用native Codex FAFB783 marked-coordinate frame，無推斷transform。",
+    "6-point graph並非全腦形態或完整induced connectome；重建只用raw connections及coordinates，synthetic activity無參與本次資料來源。",
+    "授權註記沿用sample CC BY-NC 4.0／FlyWire guidelines，限定私人自用；本次無重新驗證網站授權條款。"
+  ],
+  "limitations": [
+    "connections只有65,536 bytes partial；無驗完整archive CRC32C、gzip trailer或完整連接集合。",
+    "SHA256同CRC32C對已保存receipt/header核對，唔係獨立線上認證或數碼簽署。",
+    "本次只驗source及dataset parse接口；未驗renderer/JavaScript runtime。原始ID同sample逐字一致，numeric ID被schema拒絕。",
+    "無vision／screen capture；留畀finalQC。",
+    "無可確認實際模型身份或effort設定，requested值唔代表已切換。"
+  ],
+  "execution_incidents": [
+    {
+      "command": "PowerShell $OutputEncoding=[System.Text.Encoding]::UTF8; here-string | python -",
+      "error": "SyntaxError: invalid non-printable character U+FEFF",
+      "resolution": "改用New-Object System.Text.UTF8Encoding($false)，其後成功；未建立臨時檔。"
+    }
+  ],
+  "upstream_code_executed": false,
+  "pickle_used": false,
+  "network_used": false,
+  "vision_performed": false
+}

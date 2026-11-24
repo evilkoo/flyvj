@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "provenance": {
+    "kind": "real",
+    "name": "FlyWire FAFB 783: six annotation points / three neuropil-specific edges",
+    "version": "783; Codex coordinates g1733428431583877; connections g1733428416885848",
+    "source": "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/",
+    "license": "CC BY-NC 4.0 (FlyWire public-release guidelines; private personal prototype)"
+  },
+  "coordinates": {
+    "units": "nm",
+    "frame": "Codex FAFB 783 native marked-coordinate frame; no transform"
+  },
+  "neurons": [
+    {
+      "id": "720575940605876866",
+      "position": [
+        403352,
+        188744,
+        212200
+      ],
+      "region": "LAL_R"
+    },
+    {
+      "id": "720575940606514878",
+      "position": [
+        596332,
+        170248,
+        79480
+      ],
+      "region": "LAL_R"
+    },
+    {
+      "id": "720575940627737365",
+      "position": [
+        454956,
+        227816,
+        54800
+      ],
+      "region": "AL_L"
+    },
+    {
+      "id": "720575940628914436",
+      "position": [
+        458412,
+        229596,
+        56400
+      ],
+      "region": "AL_L"
+    },
+    {
+      "id": "720575940629970489",
+      "position": [
+        617032,
+        264280,
+        95280
+      ],
+      "region": "AVLP_R"
+    },
+    {
+      "id": "720575940631267655",
+      "position": [
+        677120,
+        302912,
+        104120
+      ],
+      "region": "AVLP_R"
+    }
+  ],
+  "connections": [
+    {
+      "pre_id": "720575940629970489",
+      "post_id": "720575940631267655",
+      "weight": 7
+    },
+    {
+      "pre_id": "720575940605876866",
+      "post_id": "720575940606514878",
+      "weight": 15
+    },
+    {
+      "pre_id": "720575940627737365",
+      "post_id": "720575940628914436",
+      "weight": 32
+    }
+  ]
+}

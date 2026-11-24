@@ -1,0 +1,202 @@
+{
+  "status": "DOWNLOADED_COORDINATE_PROVENANCE_PENDING",
+  "dataset_family": "HEMIBRAIN_PUBLIC_DEMO_NOT_WHOLE_BRAIN",
+  "region_count": 14,
+  "skeleton_count": 1,
+  "body_id": "NOT_PROVIDED_BY_DEMO",
+  "units": "UNCONFIRMED_PENDING_PRIMARY_SOURCE",
+  "coordinate_registration": "NOT_YET_VERIFIED",
+  "preserved_source_coordinates": true,
+  "total_stored_bytes": 3157350,
+  "transferred_by_this_script_bytes": 1794877,
+  "cap_bytes": 100000000,
+  "records": [
+    {
+      "path": "hemibrain_neuron.swc",
+      "repo": "fruitflybrain/neu3d",
+      "commit": "a731df47c6fc0540340c3671fa2644fc15ec53b1",
+      "source_path": "data/hemibrain_neuron.swc",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/neu3d/a731df47c6fc0540340c3671fa2644fc15ec53b1/data/hemibrain_neuron.swc",
+      "bytes": 1467104,
+      "sha256": "8a41e829c24a1c8efdd09096985d3f1d5150d0c97447b5a95329a9963085ea55",
+      "git_blob_sha1": "2124c421fcdf7b971ce3bd87be496280a61653c8"
+    },
+    {
+      "path": "sources/neu3d-README.md",
+      "repo": "fruitflybrain/neu3d",
+      "commit": "a731df47c6fc0540340c3671fa2644fc15ec53b1",
+      "source_path": "README.md",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/neu3d/a731df47c6fc0540340c3671fa2644fc15ec53b1/README.md",
+      "bytes": 4942,
+      "sha256": "fd378507e84691d0692ac582a1d7fb2de0d5b29c0679c4325df47f8884ab7000",
+      "git_blob_sha1": "32f418f56b5125a1f4b958402df6bb3dafc09635"
+    },
+    {
+      "path": "meshes/AL_L_.json",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "mesh/hemibrain/AL_L_.json",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/mesh/hemibrain/AL_L_.json",
+      "bytes": 68547,
+      "sha256": "0e4ed15dd5e369c3d58e30da3b8a218720a2ca05d3579e01426d93cb5b526e32",
+      "git_blob_sha1": "62625fef8e1812774d7a85a7ebb314328b49d5cc"
+    },
+    {
+      "path": "meshes/AL_R_.json",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "mesh/hemibrain/AL_R_.json",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/mesh/hemibrain/AL_R_.json",
+      "bytes": 177147,
+      "sha256": "bdc0d85fc6b3cddee2c3c35bccb1e0b7e4ccaea34112f3522130047538d90ee8",
+      "git_blob_sha1": "8a7f22df3c9887ae88b9c932a6ce9f583d8c4646"
+    },
+    {
+      "path": "meshes/MB_L_.json",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "mesh/hemibrain/MB_L_.json",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/mesh/hemibrain/MB_L_.json",
+      "bytes": 122765,
+      "sha256": "a41ab8d2cdc2385df88245c6c777efc01fad6d00e92a6a9644520eee167ce51c",
+      "git_blob_sha1": "5bbf33e75c4025d348a5bd708d21ae1b77ee28f5"
+    },
+    {
+      "path": "meshes/MB_R_.json",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "mesh/hemibrain/MB_R_.json",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/mesh/hemibrain/MB_R_.json",
+      "bytes": 267496,
+      "sha256": "09b293aaca9a50dd719320aaac18ba169014238ea92845fce8e2e7be69762ee0",
+      "git_blob_sha1": "d898e1daa1ed2623662e05b78fb92a03e71c9f00"
+    },
+    {
+      "path": "meshes/EB.json",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "mesh/hemibrain/EB.json",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/mesh/hemibrain/EB.json",
+      "bytes": 65454,
+      "sha256": "2d6597a755f3d411df247b0e842b67f1b8f677493331ddb638e5a114dcc0eccf",
+      "git_blob_sha1": "e24feb3a6b7217023284b40eb9997cc25215d61d"
+    },
+    {
+      "path": "meshes/FB.json",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "mesh/hemibrain/FB.json",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/mesh/hemibrain/FB.json",
+      "bytes": 153070,
+      "sha256": "c898759da64f6fc0f274f50895eb5ada9a691c79f6c8f03f678e3aa2bc9b2fa7",
+      "git_blob_sha1": "df5a60d8c47e67ef530faf4d855a30cc46c2e2f4"
+    },
+    {
+      "path": "meshes/PB.json",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "mesh/hemibrain/PB.json",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/mesh/hemibrain/PB.json",
+      "bytes": 59478,
+      "sha256": "09af355ce98a07a564a8fd69e313a2a31cf5344fa7bd8754218c06d51ee17bf5",
+      "git_blob_sha1": "692f38c01fb36c9a48bc72492af3e28cef1e750a"
+    },
+    {
+      "path": "meshes/LAL_L_.json",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "mesh/hemibrain/LAL_L_.json",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/mesh/hemibrain/LAL_L_.json",
+      "bytes": 68554,
+      "sha256": "aac98a9c56317818fad9beb82e928a32ee8e910295369eaf3d08c5484f698aec",
+      "git_blob_sha1": "d542c50689cee215921d23978eac63c5b62f4979"
+    },
+    {
+      "path": "meshes/LAL_R_.json",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "mesh/hemibrain/LAL_R_.json",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/mesh/hemibrain/LAL_R_.json",
+      "bytes": 132523,
+      "sha256": "961350b6c60e9abc29e18770c7f1adbda298acfbdae3f01748e2029fcc3f6fd0",
+      "git_blob_sha1": "728f1a7c6eb21fa2dd4d96dd72b3d30f92d7880a"
+    },
+    {
+      "path": "meshes/GNG.json",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "mesh/hemibrain/GNG.json",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/mesh/hemibrain/GNG.json",
+      "bytes": 123357,
+      "sha256": "0be5a37d41263f601b9976a216cd32085971fe81f6200863a4799b352354b204",
+      "git_blob_sha1": "4bc4cc40bd016aed0517c2f39acfc3264976e82a"
+    },
+    {
+      "path": "meshes/LO_R_.json",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "mesh/hemibrain/LO_R_.json",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/mesh/hemibrain/LO_R_.json",
+      "bytes": 241324,
+      "sha256": "6679d2158ae135e11e37e2a6982cc1d588e4338b8891233f4963b2ffb8d02cfc",
+      "git_blob_sha1": "e75288061c7f56103a6920fcb996af0d839dac29"
+    },
+    {
+      "path": "meshes/LOP_R_.json",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "mesh/hemibrain/LOP_R_.json",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/mesh/hemibrain/LOP_R_.json",
+      "bytes": 55639,
+      "sha256": "55f854dcd4381b7a32d4c97ed82d2870f2525dfc6207ecaac440c1a71f2e432e",
+      "git_blob_sha1": "3d3359fbc2614bf888e67dee5524f74f3131b9b2"
+    },
+    {
+      "path": "meshes/ME_R_.json",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "mesh/hemibrain/ME_R_.json",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/mesh/hemibrain/ME_R_.json",
+      "bytes": 51492,
+      "sha256": "9869b6448ec0b91ea9c4ad622c678636ae6d967b21158b03162160177125a286",
+      "git_blob_sha1": "6e1a55ea29dd1ae05236265cefd32e36fbf4824a"
+    },
+    {
+      "path": "meshes/LH_R_.json",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "mesh/hemibrain/LH_R_.json",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/mesh/hemibrain/LH_R_.json",
+      "bytes": 96902,
+      "sha256": "54d59caf585df1576b053279b567a24f8af727442f327fa3ca4c837fa650f867",
+      "git_blob_sha1": "9b236022b3d23f5cb18ecd11292bfd2192cc65ed"
+    },
+    {
+      "path": "sources/ffbo.lib-README.md",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "README.md",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/README.md",
+      "bytes": 52,
+      "sha256": "704e1d791aafe60cb4d678048d30eebe721ea6d5bd15f24c0d5128d04fd5539c",
+      "git_blob_sha1": "4ce9530f87f4fe15cb1ad8383f6c9224ee077fdf"
+    },
+    {
+      "path": "sources/ffbo.lib-LICENSE.md",
+      "repo": "fruitflybrain/ffbo.lib",
+      "commit": "e263ae2cc22ddc0646856d5989ddc085eec27022",
+      "source_path": "LICENSE.md",
+      "url": "https://raw.githubusercontent.com/fruitflybrain/ffbo.lib/e263ae2cc22ddc0646856d5989ddc085eec27022/LICENSE.md",
+      "bytes": 1504,
+      "sha256": "a5a3b65c9cafd9e14f7ef1f8a0e7f16af44362215c8f196cf30bd8e20b82e8b4",
+      "git_blob_sha1": "3aaaa12403b8610da213073dc29293429c7c5ae2"
+    }
+  ],
+  "safety": {
+    "installed": false,
+    "raw_music_read": false,
+    "mic_state_changed": false,
+    "osc_sent": false,
+    "private_upload": false
+  }
+}

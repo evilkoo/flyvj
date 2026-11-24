@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "provenance": {
+    "kind": "synthetic",
+    "name": "M1 synthetic ID fixture",
+    "version": "m1-fixture-v1",
+    "source": "locally-generated-test-only",
+    "license": "synthetic-test-fixture"
+  },
+  "coordinates": {
+    "units": "micrometer",
+    "frame": "synthetic-test-frame"
+  },
+  "neurons": [
+    {
+      "id": "9007199254740993",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "region": "mock-input"
+    },
+    {
+      "id": "9007199254740995",
+      "position": [
+        1,
+        0.5,
+        0
+      ],
+      "region": "mock-relay"
+    },
+    {
+      "id": "9007199254740997",
+      "position": [
+        -1,
+        1,
+        0
+      ],
+      "region": "mock-output"
+    }
+  ],
+  "connections": [
+    {
+      "pre_id": "9007199254740993",
+      "post_id": "9007199254740995",
+      "weight": 0.5
+    },
+    {
+      "pre_id": "9007199254740995",
+      "post_id": "9007199254740997",
+      "weight": -0.25
+    }
+  ]
+}

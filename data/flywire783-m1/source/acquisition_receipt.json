@@ -1,0 +1,113 @@
+{
+  "acquired_at": "2026-10-02T02:23:57.654454+08:00",
+  "publisher": "FlyWire / Codex (Murthy and Seung labs)",
+  "brain": "FAFB",
+  "materialization_version": "783",
+  "intended_use": "private_personal_prototype",
+  "network_bytes": 5380082,
+  "files": [
+    {
+      "name": "connections.csv.gz",
+      "local_name": "connections.prefix-65536.bin",
+      "url": "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/connections.csv.gz?generation=1733428416885848",
+      "object_generation": "1733428416885848",
+      "object_size": 50289304,
+      "bytes_downloaded": 65536,
+      "range": {
+        "start": 0,
+        "end": 65535
+      },
+      "sha256": "5432beb18cced0508fe2189d0f33bb2e1d20bd0e0cc7440a9909f906665c1802",
+      "headers": {
+        "Content-Length": "65536",
+        "Content-Range": "bytes 0-65535/50289304",
+        "x-goog-generation": "1733428416885848",
+        "x-goog-hash": "crc32c=DpIIog==",
+        "ETag": "\"41206440318c77418bfc7cff1cb3e0fa\"",
+        "Last-Modified": "Thu, 05 Dec 2024 19:53:36 GMT",
+        "Content-Type": "text/csv"
+      },
+      "partial_object": true
+    },
+    {
+      "name": "coordinates.csv.gz",
+      "local_name": "coordinates.csv.gz",
+      "url": "https://storage.googleapis.com/flywire-data/codex/data/fafb/783/coordinates.csv.gz?generation=1733428431583877",
+      "object_generation": "1733428431583877",
+      "object_size": 5314546,
+      "bytes_downloaded": 5314546,
+      "range": null,
+      "sha256": "14337121f451f98c2576cee72c24409ada5aaf7948b7c7ca8de9040296840e05",
+      "headers": {
+        "Content-Length": "5314546",
+        "Content-Range": null,
+        "x-goog-generation": "1733428431583877",
+        "x-goog-hash": "crc32c=tDNXJw==",
+        "ETag": "\"f7a8120f8322405fecbeec2ee1d206e7\"",
+        "Last-Modified": "Thu, 05 Dec 2024 19:53:51 GMT",
+        "Content-Type": "text/csv"
+      },
+      "partial_object": false,
+      "publisher_crc32c_verified": true
+    }
+  ],
+  "selected_connection_rows": [
+    {
+      "pre_root_id": "720575940629970489",
+      "post_root_id": "720575940631267655",
+      "neuropil": "AVLP_R",
+      "syn_count": "7",
+      "nt_type": "GABA"
+    },
+    {
+      "pre_root_id": "720575940605876866",
+      "post_root_id": "720575940606514878",
+      "neuropil": "LAL_R",
+      "syn_count": "15",
+      "nt_type": "GABA"
+    },
+    {
+      "pre_root_id": "720575940627737365",
+      "post_root_id": "720575940628914436",
+      "neuropil": "AL_L",
+      "syn_count": "32",
+      "nt_type": "ACH"
+    }
+  ],
+  "selected_coordinate_rows": [
+    {
+      "root_id": "720575940605876866",
+      "position": "[403352 188744 212200]",
+      "supervoxel_id": "77549105534222779"
+    },
+    {
+      "root_id": "720575940606514878",
+      "position": "[596332 170248  79480]",
+      "supervoxel_id": "80856092443772460"
+    },
+    {
+      "root_id": "720575940627737365",
+      "position": "[454956 227816  54800]",
+      "supervoxel_id": "78464517147143954"
+    },
+    {
+      "root_id": "720575940628914436",
+      "position": "[458412 229596  56400]",
+      "supervoxel_id": "78464585866700621"
+    },
+    {
+      "root_id": "720575940629970489",
+      "position": "[617032 264280  95280]",
+      "supervoxel_id": "81209516779593322"
+    },
+    {
+      "root_id": "720575940631267655",
+      "position": "[677120 302912 104120]",
+      "supervoxel_id": "82265735203749626"
+    }
+  ],
+  "sample_selection": "First three complete, distinct, non-self pre/post neuropil rows in the 64KiB compressed prefix; first annotated coordinate per root ID. Not a complete induced subgraph.",
+  "region_semantics": "Neuropil associated with the selected measured synaptic edge(s), not a soma/coordinate anatomical-region assignment.",
+  "weight_semantics": "The source row syn_count for one neuropil, not an all-neuropil summed edge weight.",
+  "coordinate_semantics": "First vendor annotated point for each root ID; nanometer positions per Codex neuron_data_initializer.py. No soma or full morphology claim."
+}

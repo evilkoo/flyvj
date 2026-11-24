@@ -1,0 +1,25 @@
+{
+  "repository": "murthylab/codex",
+  "commit": "3477b6cfccaf3bf976e6af0d40513ad221311a36",
+  "documents": [
+    {
+      "url": "https://raw.githubusercontent.com/murthylab/codex/3477b6cfccaf3bf976e6af0d40513ad221311a36/codex/data/local_data_loader.py",
+      "file": "codex-local_data_loader.py.txt",
+      "sha256": "bfeeba93def42f2db5221dc40bf7d0cce6efd912ef9c7908b9a0c3ab1e0c059a",
+      "bytes": 7965
+    },
+    {
+      "url": "https://raw.githubusercontent.com/murthylab/codex/3477b6cfccaf3bf976e6af0d40513ad221311a36/codex/data/neuron_data_initializer.py",
+      "file": "codex-neuron_data_initializer.py.txt",
+      "sha256": "86deb9935643d5aa76accea10cf71ed1afb1b5fc666032dacac3be6505967e1f",
+      "bytes": 17181
+    },
+    {
+      "url": "https://raw.githubusercontent.com/murthylab/codex/3477b6cfccaf3bf976e6af0d40513ad221311a36/codex/utils/formatting.py",
+      "file": "codex-formatting.py.txt",
+      "sha256": "bee35f405161d5c6293e34504fb8b202791971c98ed158b7f7cf41b3b1540c57",
+      "bytes": 7439
+    }
+  ],
+  "note": "Public source documentation only; never executed or installed."
+}
