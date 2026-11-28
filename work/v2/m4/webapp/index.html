@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="zh-HK">
+  <head>
+    <meta charset="UTF-8" />
+    <title>FlyVJ M4.6 — Decision Cockpit</title>
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 12px;
+        background: #0e0e12;
+        color: #f1f5f9;
+        font-family: ui-monospace, Consolas, monospace;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+      h1 { font-size: 16px; font-weight: 600; margin: 0 0 4px 0; color: #f8fafc; }
+      .sub { color: #94a3b8; font-size: 12px; margin-bottom: 12px; }
+      #layout { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
+      #viewport-col { flex: 0 0 580px; min-width: 0; }
+      #side-col { flex: 1 1 0; min-width: 0; }
+      @media (min-width: 1480px) { #viewport-col { flex: 0 0 720px; } }
+      @media (min-width: 1720px) { #viewport-col { flex: 0 0 880px; } }
+      @media (max-width: 1040px) {
+        #layout { flex-direction: column; }
+        #viewport-col { flex: 0 0 auto; width: 100%; }
+        #side-col { width: 100%; }
+      }
+      #fly-canvas {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        height: auto;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        background: #09090d;
+      }
+      #renderer-info { font-size: 11px; color: #94a3b8; margin-top: 8px; font-variant-numeric: tabular-nums; }
+
+      #status-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 4px; }
+      #status { padding: 4px 8px; border-radius: 4px; display: inline-block; font-size: 12px; font-weight: 600; }
+      .ok { background: #14532d; color: #dcfce7; }
+      .bad { background: #7f1d1d; color: #fee2e2; }
+      .wait { background: #78350f; color: #fef3c7; }
+      #watchdog { font-size: 11px; color: #94a3b8; margin-bottom: 8px; font-variant-numeric: tabular-nums; }
+      #watchdog.bad { color: #fca5a5; font-weight: 600; }
+
+      /* Safe Attach bar */
+      #attach-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        background: #14141a;
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        border-radius: 6px;
+        padding: 8px;
+        margin-bottom: 8px;
+      }
+      #attach-badge { font-size: 11px; color: #cbd5e1; font-variant-numeric: tabular-nums; }
+      #btn-sync-arena {
+        font-size: 11px;
+        font-family: inherit;
+        font-weight: 600;
+        padding: 4px 10px;
+        min-height: 28px;
+        background: #1e293b;
+        color: #f1f5f9;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 140ms ease-out, border-color 140ms ease-out;
+      }
+      #btn-sync-arena:hover:not(:disabled) { background: #334155; border-color: #94a3b8; }
+      #btn-sync-arena:disabled { opacity: 0.45; cursor: not-allowed; }
+
+      /* Audio panel */
+      #audio-panel {
+        background: #14141a;
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 8px;
+      }
+      #audio-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+      #start-btn {
+        font-size: 13px;
+        font-weight: 600;
+        padding: 8px 16px;
+        min-height: 36px;
+        background: #2563eb;
+        color: #ffffff;
+        border: 1px solid #3b82f6;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: inherit;
+        transition: background-color 140ms ease-out;
+      }
+      #start-btn:hover:not(:disabled) { background: #1d4ed8; }
+      #start-btn:disabled { background: #27272f; border-color: #3f3f46; color: #94a3b8; cursor: default; }
+      #recal-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+        min-height: 36px;
+        background: #1e293b;
+        color: #e2e8f0;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: inherit;
+        transition: background-color 140ms ease-out;
+      }
+      #recal-btn:hover { background: #334155; }
+      #sys-audio-btn {
+        height: 32px;
+        padding: 5px 10px;
+        font-size: 12px;
+        font-family: inherit;
+        background: #1e293b;
+        color: #e2e8f0;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 140ms ease-out;
+      }
+      #sys-audio-btn:hover:not(:disabled) { background: #334155; }
+      #sys-audio-btn:disabled { opacity: 0.45; cursor: default; }
+      #mic-state { font-size: 11px; color: #cbd5e1; margin-top: 8px; font-variant-numeric: tabular-nums; }
+      .band-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 11px; }
+      .band-label { width: 40px; color: #cbd5e1; }
+      .band-bar { flex: 1; height: 10px; background: #0a0a0e; border-radius: 4px; overflow: hidden; }
+      .band-fill { height: 100%; width: 0%; }
+      #fill-low { background: #f97316; }
+      #fill-mid { background: #22c55e; }
+      #fill-high { background: #38bdf8; }
+      .band-num { width: 44px; text-align: right; color: #94a3b8; font-variant-numeric: tabular-nums; }
+      #agc-box { font-size: 11px; margin-top: 8px; color: #cbd5e1; line-height: 1.5; }
+      #agc-box .warn { color: #fbbf24; font-weight: 600; }
+
+      /* Dev diag row (audio capture for AI analysis) */
+      .diag-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+      #btn-diag-audio {
+        min-height: 32px;
+        padding: 5px 10px;
+        font-size: 11px;
+        font-family: inherit;
+        font-weight: 600;
+        background: #1e293b;
+        color: #e2e8f0;
+        border: 1px solid #475569;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 120ms ease-out, border-color 120ms ease-out, color 120ms ease-out;
+      }
+      #btn-diag-audio:hover:not(.recording) { background: #334155; }
+      #btn-diag-audio.recording { background: #7f1d1d; border-color: #ef4444; color: #fca5a5; }
+
+      /* Decision Cockpit */
+      #cockpit {
+        background: #14141a;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 8px;
+      }
+      #cockpit-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 8px; }
+      #cockpit-head b { font-size: 13px; color: #e2e8f0; }
+      #master-mode { font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 4px; }
+      #master-mode.AUTO { background: #14532d; color: #bbf7d0; }
+      #master-mode.OVERRIDE { background: #78350f; color: #fef08a; }
+      #master-mode.HOLD { background: #7f1d1d; color: #fecaca; }
+      #learn-badge { font-size: 11px; color: #a7f3d0; margin-left: auto; font-variant-numeric: tabular-nums; }
+
+      #master-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+      #master-btns button {
+        min-height: 44px;
+        padding: 6px 10px;
+        font-size: 12px;
+        font-family: inherit;
+        font-weight: 600;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: #1d1e26;
+        color: #f1f5f9;
+        cursor: pointer;
+        transition: background-color 140ms ease-out, border-color 140ms ease-out;
+      }
+      #master-btns button:hover { background: #262834; border-color: rgba(255, 255, 255, 0.30); }
+      #master-btns button.active-auto { border-color: #22c55e; background: #132a1d; }
+      #master-btns button.active-hold { border-color: #ef4444; background: #331414; }
+      #master-hint { font-size: 11px; color: #94a3b8; margin-bottom: 8px; }
+
+      /* M4.6 Imitation Capture Bar */
+      #capture-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        background: #101016;
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        border-radius: 6px;
+        padding: 8px;
+        margin-bottom: 8px;
+      }
+      #capture-bar button {
+        min-height: 32px;
+        padding: 4px 10px;
+        font-size: 11px;
+        font-family: inherit;
+        font-weight: 600;
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: #1d1e26;
+        color: #f1f5f9;
+        cursor: pointer;
+        transition: background-color 140ms ease-out, border-color 140ms ease-out;
+      }
+      #capture-bar button:hover:not(:disabled) { background: #262834; border-color: rgba(255, 255, 255, 0.30); }
+      #capture-bar button:disabled { opacity: 0.4; cursor: not-allowed; }
+      #btn-rec.recording { background: #7f1d1d; border-color: #ef4444; color: #fecaca; }
+      #btn-train { border-color: #38bdf8; }
+      #rec-status { font-size: 11px; color: #cbd5e1; width: 100%; font-variant-numeric: tabular-nums; }
+
+      /* 3x3 semantic candidate grid */
+      #cand-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
+      .cand {
+        min-height: 60px;
+        background: #0f0f15;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 6px;
+        cursor: pointer;
+        padding: 6px;
+        text-align: center;
+        user-select: none;
+        position: relative;
+        overflow: hidden;
+        transition: border-color 120ms ease-out, background-color 120ms ease-out;
+      }
+      .cand:hover { border-color: rgba(255, 255, 255, 0.32); }
+      .cand.top { border-color: #22c55e; background: #112218; }
+      .cand .col { font-size: 13px; font-weight: 600; color: #f8fafc; }
+      .cand .band { font-size: 10px; color: #94a3b8; }
+      .cand .conf { font-size: 11px; color: #cbd5e1; margin-top: 2px; font-variant-numeric: tabular-nums; }
+      .cand .bar { position: absolute; left: 0; bottom: 0; height: 4px; background: #3b82f6; width: 0%; }
+      .conf-chip { font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 3px; }
+      .conf-HIGH { background: #14532d; color: #bbf7d0; }
+      .conf-MED { background: #78350f; color: #fef08a; }
+      .conf-LOW { background: #27272a; color: #cbd5e1; }
+
+      #det-state { font-size: 11px; color: #94a3b8; margin-bottom: 6px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+      #det-state .phase { font-weight: 600; color: #e2e8f0; }
+      #det-state .phase.buildup { color: #fbbf24; }
+      #det-state .phase.drop { color: #f87171; }
+
+      /* M4.7 C1 semantic strip — quiet dark-room status line (no glow, no gradient) */
+      #c1-strip {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+        padding: 4px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        font-size: 11px;
+        color: #94a3b8;
+        font-variant-numeric: tabular-nums;
+        line-height: 1.35;
+        overflow: hidden;
+      }
+      #c1-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        background: #f59e0b;
+      }
+      #c1-dot.ready { background: #10b981; }
+      #c1-dot.error { background: #ef4444; }
+      #c1-tag {
+        display: none;
+        flex-shrink: 0;
+        font-size: 10px;
+        font-weight: 600;
+        padding: 1px 6px;
+        border-radius: 3px;
+        background: #27272a;
+        color: #a1a1aa;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      #c1-tag.active { display: inline-block; }
+      #ticker {
+        font-size: 12px;
+        font-weight: 600;
+        background: #09090d;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 4px;
+        padding: 8px;
+        min-height: 32px;
+        color: #7dd3fc;
+      }
+      #ticker.hold { color: #94a3b8; font-weight: 400; }
+      #ticker.trigger { color: #86efac; }
+      #history { font-size: 11px; max-height: 88px; overflow-y: auto; color: #94a3b8; margin-top: 6px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+      #history .h-trig { color: #86efac; }
+      #history .h-hold { color: #94a3b8; }
+      #perf-line { font-size: 10px; color: #64748b; margin-top: 6px; font-variant-numeric: tabular-nums; }
+
+      /* Phase 1: Bind mode controls + Dynamic MxN Grid */
+      #bind-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        background: #14141a;
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        border-radius: 6px;
+        padding: 8px;
+        margin-bottom: 8px;
+      }
+      #btn-bind-mode {
+        min-height: 32px;
+        padding: 4px 10px;
+        font-size: 11px;
+        font-family: inherit;
+        font-weight: 600;
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: #1d1e26;
+        color: #f1f5f9;
+        cursor: pointer;
+        transition: background-color 140ms ease-out, border-color 140ms ease-out;
+      }
+      #btn-bind-mode.active-bind { background: #0c4a6e; border-color: #38bdf8; color: #e0f2fe; }
+      #bind-slot-select {
+        min-height: 32px;
+        padding: 4px 8px;
+        font-size: 11px;
+        font-family: inherit;
+        background: #0e0e13;
+        color: #f1f5f9;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 4px;
+      }
+      #bind-hint { font-size: 11px; color: #94a3b8; }
+
+      #grid-wrap {
+        overflow-x: auto;
+        max-width: 100%;
+        margin-bottom: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        border-radius: 6px;
+        padding: 8px;
+        background: #121218;
+      }
+      #grid {
+        display: grid;
+        grid-template-columns: 116px repeat(var(--arena-cols, 3), minmax(88px, 108px));
+        gap: 4px;
+        width: max-content;
+        min-width: 100%;
+      }
+      .head {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #94a3b8;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px;
+        background: #181820;
+        border-radius: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .row-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4px;
+        padding: 4px 6px;
+        background: #181820;
+        border-radius: 4px;
+        min-width: 0;
+      }
+      .layer-name {
+        font-size: 11px;
+        font-weight: 600;
+        color: #e2e8f0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .role-pill {
+        flex: 0 0 auto;
+        font-size: 10px;
+        font-family: inherit;
+        font-weight: 600;
+        padding: 2px 5px;
+        border-radius: 3px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: background-color 120ms ease-out, border-color 120ms ease-out;
+      }
+      .role-exclusive { background: #14532d; color: #bbf7d0; border-color: #22c55e; }
+      .role-overlay { background: #0c4a6e; color: #bae6fd; border-color: #38bdf8; }
+      .role-ignore { background: #27272a; color: #a1a1aa; border-color: #52525b; }
+
+      .cell {
+        padding: 6px 4px;
+        text-align: center;
+        background: #1b1c24;
+        border: 2px solid rgba(255, 255, 255, 0.12);
+        border-radius: 4px;
+        cursor: pointer;
+        user-select: none;
+        font-size: 10px;
+        line-height: 1.35;
+        min-height: 48px;
+        transition: border-color 120ms ease-out, background-color 120ms ease-out;
+      }
+      .cell:hover { border-color: rgba(255, 255, 255, 0.30); }
+      .cell.connected { border-color: #22c55e; background: #14351f; }
+      .cell.col-on { outline: 1px solid #4ade80; outline-offset: -3px; }
+      .cell.bind-target { border-color: #38bdf8; background: #0f293a; }
+      .cell-name { display: block; font-weight: 600; color: #f1f5f9; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .dim { color: #94a3b8; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .slot-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; margin-top: 3px; }
+      .slot-badge {
+        font-size: 9px;
+        font-weight: 600;
+        padding: 1px 4px;
+        border-radius: 3px;
+        background: #1e293b;
+        color: #7dd3fc;
+        border: 1px solid rgba(56, 189, 248, 0.35);
+      }
+      .slot-badge.implicit {
+        background: #18181b;
+        color: #94a3b8;
+        border-color: rgba(148, 163, 184, 0.25);
+      }
+
+      #log {
+        font-size: 11px;
+        max-height: 140px;
+        overflow-y: auto;
+        background: #09090d;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 8px;
+        border-radius: 4px;
+        white-space: pre-wrap;
+        color: #cbd5e1;
+      }
+      .err { color: #fca5a5; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <h1>FlyVJ M4.6 — 慢層決策 ＋ Decision Cockpit</h1>
+    <div class="sub">結構事件（build-up / drop）→ 語義九格 → 動態 M×N Arena 映射。人手 override 永遠優先；Safe Attach 只讀連線唔會自動覆寫 Arena。</div>
+    <div id="layout">
+      <div id="viewport-col">
+        <canvas id="fly-canvas" width="1280" height="720"></canvas>
+        <div id="renderer-info">renderer: idle</div>
+      </div>
+      <div id="side-col">
+        <div id="status-bar">
+          <div id="status" class="wait">loading manifest…</div>
+        </div>
+        <div id="watchdog">watchdog: idle</div>
+
+        <div id="attach-bar">
+          <span id="attach-badge">Safe Attach 只讀連線 — 未連線 Arena（唔會自動覆寫）</span>
+          <button id="btn-sync-arena" type="button" disabled>同步 Manifest → Arena</button>
+        </div>
+
+        <div id="audio-panel">
+          <div id="audio-actions">
+            <button id="start-btn" type="button">▶ Start（開 mic 分析）</button>
+            <button id="recal-btn" type="button" title="重新校準底噪（播緊歌中途撳都可以：非對稱追蹤會快速落返新底）">↻ 重新校準底噪</button>
+            <button id="sys-audio-btn" type="button" title="直接擷取 Resolume / 系統原音（免開 Mic、免開喇叭；彈窗揀整個畫面並剔選分享系統音訊）">系統音訊（Resolume）</button>
+          </div>
+          <div id="mic-state">mic: idle</div>
+          <div class="band-row"><span class="band-label">HIGH</span><div class="band-bar"><div class="band-fill" id="fill-high"></div></div><span class="band-num" id="num-high">0.000</span></div>
+          <div class="band-row"><span class="band-label">MID</span><div class="band-bar"><div class="band-fill" id="fill-mid"></div></div><span class="band-num" id="num-mid">0.000</span></div>
+          <div class="band-row"><span class="band-label">LOW</span><div class="band-bar"><div class="band-fill" id="fill-low"></div></div><span class="band-num" id="num-low">0.000</span></div>
+          <div id="agc-box">AGC/echo/NS 實際狀態：未開始</div>
+          <div class="diag-row">
+            <button id="btn-diag-audio" type="button" title="錄製最多 5 分鐘真實 mic 音訊連同 16ms 頻段與決策紀錄傳送給 dev 診斷分析（可隨時按停止提前上傳）">🎙 錄 5m 診斷音訊</button>
+            <span id="diag-status" style="font-size: 11px; color: #94a3b8; font-variant-numeric: tabular-nums;">Dev 監控：偵測中…</span>
+          </div>
+        </div>
+
+        <!-- M4 Decision Cockpit -->
+        <div id="cockpit">
+          <div id="cockpit-head">
+            <b>DECISION COCKPIT</b>
+            <span id="master-mode" class="AUTO">AUTO</span>
+            <span id="learn-badge">已學習: 0 次</span>
+          </div>
+          <div id="master-btns">
+            <button id="btn-auto" type="button" class="active-auto">AUTO（還畀自動）</button>
+            <button id="btn-hold" type="button">HOLD ⏸（凍結）</button>
+            <button id="btn-tmode" type="button">TRIGGER: CLIP（9 選 1）</button>
+            <button id="btn-export-brain" type="button" title="匯出果蠅腦權重＋示範＋錄製＋映射 JSON">匯出經驗</button>
+            <button id="btn-reset-brain" type="button" title="清空果蠅腦學習權重">重置記憶</button>
+          </div>
+          <div id="master-hint">撳九宮格或 Arena 格位 = 觸發 clip＋override（撳 AUTO 還畀自動）。HOLD = panic freeze。</div>
+
+          <!-- M4.6 Imitation Capture Bar -->
+          <div id="capture-bar">
+            <button id="btn-rec" type="button">⏺ 錄製表演</button>
+            <button id="btn-train" type="button">⚡ 訓練果蠅腦</button>
+            <button id="btn-rollback" type="button" disabled>↩ 還原訓練</button>
+            <button id="btn-clear-rec" type="button">🧹 清空錄製</button>
+            <div id="rec-status">未錄製 · 已錄 0 條（可訓練 0 · 未綁定 0 · 已訓練 0）</div>
+          </div>
+
+          <div id="cand-row">
+            <div class="cand" id="cand-7"><div class="col">L3·S</div><div class="band">HIGH STATIC</div><div class="conf" id="conf-7">—</div><div class="bar" id="bar-7"></div></div>
+            <div class="cand" id="cand-8"><div class="col">L3·M</div><div class="band">HIGH MEDIUM</div><div class="conf" id="conf-8">—</div><div class="bar" id="bar-8"></div></div>
+            <div class="cand" id="cand-9"><div class="col">L3·A</div><div class="band">HIGH ACTIVE</div><div class="conf" id="conf-9">—</div><div class="bar" id="bar-9"></div></div>
+            <div class="cand" id="cand-4"><div class="col">L2·S</div><div class="band">MID STATIC</div><div class="conf" id="conf-4">—</div><div class="bar" id="bar-4"></div></div>
+            <div class="cand" id="cand-5"><div class="col">L2·M</div><div class="band">MID MEDIUM</div><div class="conf" id="conf-5">—</div><div class="bar" id="bar-5"></div></div>
+            <div class="cand" id="cand-6"><div class="col">L2·A</div><div class="band">MID ACTIVE</div><div class="conf" id="conf-6">—</div><div class="bar" id="bar-6"></div></div>
+            <div class="cand" id="cand-1"><div class="col">L1·S</div><div class="band">LOW STATIC</div><div class="conf" id="conf-1">—</div><div class="bar" id="bar-1"></div></div>
+            <div class="cand" id="cand-2"><div class="col">L1·M</div><div class="band">LOW MEDIUM</div><div class="conf" id="conf-2">—</div><div class="bar" id="bar-2"></div></div>
+            <div class="cand" id="cand-3"><div class="col">L1·A</div><div class="band">LOW ACTIVE</div><div class="conf" id="conf-3">—</div><div class="bar" id="bar-3"></div></div>
+          </div>
+
+          <div id="det-state">detector: <span class="phase">idle</span> · warmup… · bpm — · dens — · novLow — · reg —</div>
+          <div id="c1-strip"><span id="c1-dot"></span><span id="c1-text">C1 語義: 載入 YAMNet WASM…</span><span id="c1-tag"></span></div>
+          <div id="ticker" class="hold">等待結構事件…（drop 確認後呢度顯示決定＋原因）</div>
+          <div id="history"></div>
+          <div id="perf-line">main-frame sample max —ms · worker compute max —ms · longtasks —</div>
+        </div>
+
+        <!-- Phase 1: Semantic-Physical Bind Mode + Scrollable MxN Arena Grid -->
+        <div id="bind-bar">
+          <button id="btn-bind-mode" type="button">綁定語義槽：關</button>
+          <select id="bind-slot-select" aria-label="選擇語義槽">
+            <option value="0">L1·S (LOW STATIC)</option>
+            <option value="1">L1·M (LOW MEDIUM)</option>
+            <option value="2">L1·A (LOW ACTIVE)</option>
+            <option value="3">L2·S (MID STATIC)</option>
+            <option value="4">L2·M (MID MEDIUM)</option>
+            <option value="5">L2·A (MID ACTIVE)</option>
+            <option value="6">L3·S (HIGH STATIC)</option>
+            <option value="7">L3·M (HIGH MEDIUM)</option>
+            <option value="8">L3·A (HIGH ACTIVE)</option>
+          </select>
+          <span id="bind-hint">點擊層級徽章可切換 EXCL / OVLY / IGN</span>
+        </div>
+
+        <div id="grid-wrap">
+          <div id="grid"></div>
+        </div>
+        <div id="log"></div>
+      </div>
+    </div>
+    <script type="module" src="/main.ts"></script>
+  </body>
+</html>

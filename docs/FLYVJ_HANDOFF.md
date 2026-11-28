@@ -1,10 +1,12 @@
-# 2026-11-18 FlyVJ 交接入口：M4＋M4.5＋M4.5.1 已 PASS，下一 task＝M5（`docs/M5_TICKET.md`）
+# 2026-11-28 FlyVJ 交接入口：M4.6 Stage A 已 PASS，下一 task＝Stage B Phase 3（M5 Tagging，`docs/M5_TICKET.md`）
 
 > 注意：workspace 根 `HANDOFF.md` 已被另一個 session（Qoder proxy 接入）覆寫，唔關 FlyVJ 事。FlyVJ 項目交接以**本檔**為入口；M4＋M4.5＋M4.5.1 證據全文見 `docs/M4_RESULT.md`（含兩份 ADDENDUM）。
 
 ## 0｜一句話狀態
 
-旧 M0–M3C 路線終結（保留唔删）。v2 定案落檔（SPEC_V2＋7 ADR＋CONTEXT＋6 research）。**M1–M4 全 PASS；M4.5（果蠅腦 MB-WTA／9 選 1／section／非對稱 gate）PASS；M4.5.1（2026-11-18 依 `docs/M45_1_RECIPE.md` 完成實戰錄影審核修復）PASS**：(1) build-up 九宮格唔再空白＋10Hz live 機率；(2) drop↔section 1–3s 乒乓連跳消滅（共用 5s 冷卻）；(3) `rebalanceBands` 解鎖 L2/L3（acceptance 實測 drop 落 L3C1/L2C1/L3C2，唔再 L1 壟斷）；(4) Arena clip trigger 改 short-press（省略 value）＋先 clear 後 trigger；(5) 果蠅腦經驗 `localStorage` 持久化＋人手示範錄製器（`flyvj.mb.v1`／`flyvj.demo.v1`）＋💾匯出／🗑重置掣＋🧠 badge（cdp 驗證 reload 保留）。**67 unit tests 綠、acceptance 四契約全 PASS（+45~+156ms）、typecheck 0 error、Arena real 路 precision=true（首次真 9 選 1 純淨落地，唔使 fallback）。下一動作＝Milestone 5（`docs/M5_TICKET.md`）。**
+**M4.6 Stage A（2026-11-28）PASS**（Phase 0＋1＋2）：**Phase 0 Safe Attach**（WS `isComposition` 唔再自動 `syncManifestToArena()`，改 dry-run `planSync` 差異數＋`#attach-bar`＋手動 `#btn-sync-arena`＋`window.confirm` 二次確認，連真實 5×11 `.avc` 絕不自動覆寫）＋零重建即時刷新（`buildGridDom()`／rAF `updateGridLiveState()` 只切 class，零 `innerHTML=""`）＋worker／效能修復（`lastSampleT` 更新；`MushroomBody.project` 改 `actBuf`/`topVal`/`topIdx` 預分配＋O(KC·log K) min-heap，與原 stable sort bit-for-bit 一致；`#btn-reset-brain` confirm 保護）。**Phase 1 動態 M×N Grid＋語義/實體解耦**（新純模組 `src/mapping.ts`：9 語義槽 ↔ 任意 `L×C`、per-layer `exclusive`/`overlay`/`ignore`（預設 L1–L3 exclusive／L4+ overlay）、`layersToClearForTarget` 保 overlay/ignore 唔被清、`resolveSemanticToPhysical` Bag 不連撞輪播；`protocol.ts` 加 `layerClearPath`＋`WsLayer.master?` 預留 M4.7；UI `#grid-wrap` 橫捲＋真 Layer 名＋role pill＋`#btn-bind-mode` 綁定模式）。**Phase 2 M4.6 實戰模仿學習 Performance Capture**（新 `src/external-detect.ts`：rising-edge only＋1500ms self-fire 抑制；`capture.ts` windowedTrace `[t-400ms,t+100ms]`、`argmaxCellFromTrace` 改 `balancedBands`、`batchTrainMB` 類別平衡 `etaScale`＋`trainedIndices` rollback；`WorkerInMsg` 類型合約＋`tests/worker-contract.test.ts` 全流程；UI `#capture-bar` 錄製→訓練→還原→清空、`flyvj.capture.v1` 持久化、匯出含 `mapping`＋`capturePairs`）。**90 unit tests 綠（67＋23）、typecheck/build exit 0、QC Gate 1／2A（初輪捉到 5 處 worker-main 訊息名偏差已修正）／2B Visual Director 全 PASS；1280×720 單屏無溢出（viewport 960→580px＋`#grid-wrap` 內部橫捲）。詳情＋5×11 操作指南見 `docs/M46_STAGE_A_RESULT.md`。**
+
+旧 M0–M3C 路線終結（保留唔删）。v2 定案落檔（SPEC_V2＋7 ADR＋CONTEXT＋6 research）。**M1–M4 全 PASS；M4.5（果蠅腦 MB-WTA／9 選 1／section／非對稱 gate）PASS；M4.5.1（2026-11-18 依 `docs/M45_1_RECIPE.md` 完成實戰錄影審核修復）PASS**：(1) build-up 九宮格唔再空白＋10Hz live 機率；(2) drop↔section 1–3s 乒乓連跳消滅（共用 5s 冷卻）；(3) `rebalanceBands` 解鎖 L2/L3（acceptance 實測 drop 落 L3C1/L2C1/L3C2，唔再 L1 壟斷）；(4) Arena clip trigger 改 short-press（省略 value）＋先 clear 後 trigger；(5) 果蠅腦經驗 `localStorage` 持久化＋人手示範錄製器（`flyvj.mb.v1`／`flyvj.demo.v1`）＋💾匯出／🗑重置掣＋🧠 badge（cdp 驗證 reload 保留）。**67 unit tests 綠、acceptance 四契約全 PASS（+45~+156ms）、typecheck 0 error、Arena real 路 precision=true（首次真 9 選 1 純淨落地，唔使 fallback）。**
 
 ## 1｜新 session 第一個確切動作
 
@@ -38,12 +40,15 @@
 | `docs/M4_RESULT.md` | M4 交付＋四契約證據＋timecode 表＋**M4.5 ADDENDUM**（MB-WTA／9 選 1／section／非對稱 gate＋M4.5 教訓） |
 | `docs/M45_CHECKPOINT.md` | M4.5 mid-flight 診斷史（pause 檔，含 live≠replay stale-cache 案） |
 | `docs/M45_1_RECIPE.md` | **當前執行 Recipe**：實戰錄影審核修復＋果蠅腦 `localStorage` 持久化＆人手示範錄製器 |
-| `docs/M5_TICKET.md` | **下一 task**（M4.5.1 完成後開工） |
+| `docs/M46_STAGE_A_RESULT.md` | **M4.6 Stage A 交付全文**（Phase 0 Safe Attach／Phase 1 M×N mapping／Phase 2 M4.6 Capture 細節、驗收證據、5×11 快速操作指南） |
+| `docs/M5_TICKET.md` | **下一 task**（Stage B Phase 3；M4.5.1/M4.6 完成後開工） |
 | `work/v2/m4/webapp/` | app（port 5200） |
 | `work/v2/m4/qc-assets/` | QC 工具（launch-chrome／cdp／acceptance fake+real／make-test-songs-m4／record-replay／replay-existing／arena-front） |
 | `work/v2/m4/evidence/` | screen-cap PNG |
 | `work/v2/m4/acceptance-bands-*.json` | 16ms band log（offline replay 覆核證據） |
 | `CONTEXT.md`／`docs/adr/`／`docs/research/` | glossary／決定鏈／一手研究 |
+
+**Stage B next steps（按序）**：Phase 3＝M5 Tagging + Edit Tab（`docs/M5_TICKET.md`）→ Phase 4＝M4.7 Dashboard-First Motor Layer（用 `layerClearPath`／`WsLayer.master?` 預留位）→ Phase 5＝Perform Mode + M6 3070 Ti 20 分鐘實測（含 ≥20 分鐘長 run 退化測試）。
 
 ## 4｜授權狀態
 

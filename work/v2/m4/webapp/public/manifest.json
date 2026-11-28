@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "arenaPort": 8080,
+  "clips": [
+    { "layer": 1, "column": 1, "energy": "LOW",  "motion": "STATIC", "source": "source:///video/Metaballs",    "name": "Metaballs",    "tags": ["dummy", "generator"] },
+    { "layer": 1, "column": 2, "energy": "LOW",  "motion": "MEDIUM", "source": "source:///video/Rings",        "name": "Rings",        "tags": ["dummy", "generator"] },
+    { "layer": 1, "column": 3, "energy": "LOW",  "motion": "ACTIVE", "source": "source:///video/Spiral",       "name": "Spiral",       "tags": ["dummy", "generator"] },
+    { "layer": 2, "column": 1, "energy": "MID",  "motion": "STATIC", "source": "source:///video/Line%20Scape", "name": "LineScape",    "tags": ["dummy", "generator"] },
+    { "layer": 2, "column": 2, "energy": "MID",  "motion": "MEDIUM", "source": "source:///video/Tunnelines",   "name": "Tunnelines",   "tags": ["dummy", "generator"] },
+    { "layer": 2, "column": 3, "energy": "MID",  "motion": "ACTIVE", "source": "source:///video/Gradient",     "name": "Gradient",     "tags": ["dummy", "generator"] },
+    { "layer": 3, "column": 1, "energy": "HIGH", "motion": "STATIC", "source": "source:///video/Stroboscope",  "name": "Stroboscope",  "tags": ["dummy", "generator"] },
+    { "layer": 3, "column": 2, "energy": "HIGH", "motion": "MEDIUM", "source": "source:///video/Checkered",    "name": "Checkered",    "tags": ["dummy", "generator"] },
+    { "layer": 3, "column": 3, "energy": "HIGH", "motion": "ACTIVE", "source": "source:///video/Solid%20Color","name": "SolidColor",   "tags": ["dummy", "generator"] }
+  ]
+}

@@ -1,8 +1,31 @@
-work/
+# Ignore scratch/evidence under work/, but track the active M4.8 webapp and lightweight POC scripts
+work/*
+!work/v2/
+work/v2/*
+!work/v2/m4/
+work/v2/m4/*
+!work/v2/m4/webapp/
+!work/v2/m4/poc-c1/
+
+# Webapp generated / dependency / regenerated ORT WASM (~87 MB synced on npm install via postinstall)
+work/v2/m4/webapp/node_modules/
+work/v2/m4/webapp/dist/
+work/v2/m4/webapp/public/ort/
+
+# POC-C1 heavy/generated artifacts (keep lightweight scripts & report.md)
+work/v2/m4/poc-c1/node_modules/
+work/v2/m4/poc-c1/models/
+work/v2/m4/poc-c1/*.log
+work/v2/m4/poc-c1/report.json
+
+# Python & cache
 __pycache__/
 *.py[cod]
 .venv/
 .pytest_cache/
-# Large video tracked by Git LFS
+
+# Large media / local test audio excluded from GitHub (exceeds or nears GitHub size limits)
 *.lfspointer
-"FlyVJ M4 — Decision Cockpit - Google Chrome 2026-11-18 03-31-27_1.mp4"
+FlyVJ M4 — Decision Cockpit - Google Chrome 2026-11-18 03-31-27_1.mp4
+*.mp4
+Bakari_DJ_intro_edit_no_voice.mp3.wav
